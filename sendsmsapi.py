@@ -33,6 +33,10 @@ def send_sms(msgbody,number):
 def send_sms_test(msgbody,number):
     print number, msgbody
 
+@app.route("/hi")
+def hello():
+    return "Hello World!"
+
 class SendSMSAPI(Resource):
     def post(self):
         args = parser.parse_args()
