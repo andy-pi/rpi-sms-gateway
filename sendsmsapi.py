@@ -30,13 +30,6 @@ def send_sms(msgbody,number):
     message = {'Text': msgbody, 'SMSC': {'Location': 1}, 'Number': number}
     smsd.InjectSMS([message])
 
-def send_sms_test(msgbody,number):
-    print number, msgbody
-
-@app.route("/hi")
-def hello():
-    return "Hello World!"
-
 class SendSMSAPI(Resource):
     def post(self):
         args = parser.parse_args()
@@ -44,7 +37,7 @@ class SendSMSAPI(Resource):
         validatednumber=validate(unvalidatednumber)
         if validatednumber is not False:
             msgbody = args['stripped-text'][:160] # get first 160 chars only
-            send_sms_test(msgbody,validatednumber)
+            send_sms(msgbody,validatednumber)
             return Response(status=202)
             
         else:
@@ -58,4 +51,4 @@ class SendSMSAPI(Resource):
 api.add_resource(SendSMSAPI, '/sendsms/')
 
 if __name__ == '__main__':
-    app.run(host=FLASK_HOST, port=FLASK_PORT ,debug=True)
+    app.run(host=FLASK_HOST, port=FLASK_PORT)
