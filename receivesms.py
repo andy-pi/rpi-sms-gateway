@@ -7,7 +7,7 @@ from config import *
 def get_message():
     files = [os.path.join('/var/spool/gammu/inbox/', m) for m in sys.argv[1:]]
     files.sort() # make sure we get the parts in the right order
-    number = re.match(r'^IN\d+_\d+_\d+_(\+?\d+)_\d+\.txt', os.path.split(files[0])[1]).group(1)
+    number = re.match(r'^IN\d+_\d+_\d+_(.*)_\d+\.txt', os.path.split(files[0])[1]).group(1) 
     text = ''
     for f in files:
         text += open(f, 'r').read()
